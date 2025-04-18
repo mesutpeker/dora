@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürünlerimiz - Dora Pasta</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            background: linear-gradient(to right, rgba(255, 107, 107, 0.9), rgba(254, 202, 87, 0.9)), url('https://images.unsplash.com/photo-1605807646983-377bc5a76493?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .categories-section {
+            padding: 80px 0;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .category-tab {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover, .category-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-item:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .product-desc {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-wrapper {
+            position: relative;
+        }
+
+        .custom-order {
+            padding: 60px 0;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .custom-order p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .category-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-tab {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Dora Pasta</h1>
+                <p>Butik Lezzetler</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Ana Sayfa</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="urunlerimiz.html" class="active">Ürünlerimiz</a></li>
+                    <li><a href="tarifler.html">Tarifler</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Ürünlerimiz</h1>
+            <p>Özel günleriniz için hazırladığımız butik lezzetler</p>
+        </div>
+    </section>
+
+    <section class="categories-section">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">Tümü</button>
+                <button class="category-tab" data-category="pastalar">Pastalar</button>
+                <button class="category-tab" data-category="kurabiyeler">Kurabiyeler</button>
+                <button class="category-tab" data-category="cheesecakeler">Cheesecake'ler</button>
+                <button class="category-tab" data-category="ozel">Özel Koleksiyon</button>
+            </div>
+
+            <div class="products-grid">
+                <!-- Pastalar -->
+                <div class="product-wrapper" data-category="pastalar">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Çikolatalı Pasta">
+                        </div>
+                        <div class="product-info">
+                            <h3>Çikolatalı Pasta</h3>
+                            <p class="product-desc">Özel Belçika çikolatası ile hazırlanan, lezzet dolu pastamız.</p>
+                            <span class="product-price">185 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-wrapper" data-category="pastalar">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Tiramisu">
+                        </div>
+                        <div class="product-info">
+                            <h3>Tiramisu</h3>
+                            <p class="product-desc">İtalyan mutfağının en sevilen tatlısı, kendi yorumumuzla.</p>
+                            <span class="product-price">160 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-wrapper" data-category="pastalar">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1562777717-dc6984f65a63?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Çilekli Pasta">
+                        </div>
+                        <div class="product-info">
+                            <h3>Çilekli Pasta</h3>
+                            <p class="product-desc">Taze çileklerle süslenmiş, hafif ve lezzetli pasta.</p>
+                            <span class="product-price">175 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kurabiyeler -->
+                <div class="product-wrapper" data-category="kurabiyeler">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Damla Çikolatalı Kurabiye">
+                        </div>
+                        <div class="product-info">
+                            <h3>Damla Çikolatalı Kurabiye</h3>
+                            <p class="product-desc">Dışı çıtır, içi yumuşacık kurabiyeler (5 adet).</p>
+                            <span class="product-price">45 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-wrapper" data-category="kurabiyeler">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Fındıklı Kurabiye">
+                        </div>
+                        <div class="product-info">
+                            <h3>Fındıklı Kurabiye</h3>
+                            <p class="product-desc">Bol fındıklı, tereyağlı özel kurabiyelerimiz (5 adet).</p>
+                            <span class="product-price">50 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cheesecake'ler -->
+                <div class="product-wrapper" data-category="cheesecakeler">
+                    <span class="product-badge">En Çok Satan</span>
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Klasik Cheesecake">
+                        </div>
+                        <div class="product-info">
+                            <h3>Klasik Cheesecake</h3>
+                            <p class="product-desc">Kremsi dokulu, enfes klasik cheesecake.</p>
+                            <span class="product-price">150 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-wrapper" data-category="cheesecakeler">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Çilekli Cheesecake">
+                        </div>
+                        <div class="product-info">
+                            <h3>Çilekli Cheesecake</h3>
+                            <p class="product-desc">Taze çileklerle süslenmiş, hafif ve ferahlatıcı cheesecake.</p>
+                            <span class="product-price">165 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Özel Koleksiyon -->
+                <div class="product-wrapper" data-category="ozel">
+                    <span class="product-badge">Yeni</span>
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Makaron Seti">
+                        </div>
+                        <div class="product-info">
+                            <h3>Makaron Seti</h3>
+                            <p class="product-desc">Farklı lezzetlerde, renkli ve çıtır makaronlar (8 adet).</p>
+                            <span class="product-price">120 ₺</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-wrapper" data-category="ozel">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Doğum Günü Pastası">
+                        </div>
+                        <div class="product-info">
+                            <h3>Doğum Günü Pastası</h3>
+                            <p class="product-desc">Kişiye özel tasarım, istediğiniz lezzette doğum günü pastası.</p>
+                            <span class="product-price">250 ₺'den başlayan fiyatlarla</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-wrapper" data-category="ozel">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Düğün Pastası">
+                        </div>
+                        <div class="product-info">
+                            <h3>Düğün Pastası</h3>
+                            <p class="product-desc">Özel gününüze uygun, katlı düğün pastaları.</p>
+                            <span class="product-price">Fiyat için iletişime geçin</span>
+                            <div class="product-actions">
+                                <a href="iletisim.html" class="btn-small">Sipariş Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="custom-order">
+        <div class="container">
+            <h2 class="section-title">Özel Siparişleriniz İçin</h2>
+            <p>Doğum günü, düğün, nişan, mezuniyet gibi özel günleriniz için kişiye özel pasta tasarımları yapıyoruz. İstediğiniz tema, renk ve lezzette butik pastalar için bizimle iletişime geçebilirsiniz.</p>
+            <a href="iletisim.html" class="btn">İletişime Geçin</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Dora Pasta</h3>
+                    <p>Butik Lezzetler</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Hızlı Erişim</h4>
+                    <ul>
+                        <li><a href="../index.html">Ana Sayfa</a></li>
+                        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                        <li><a href="urunlerimiz.html">Ürünlerimiz</a></li>
+                        <li><a href="tarifler.html">Tarifler</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>İletişim</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Çiçek Mahallesi, Pasta Sokak No:42, İstanbul</p>
+                    <p><i class="fas fa-phone"></i> (0212) 555 55 55</p>
+                    <p><i class="fas fa-envelope"></i> info@dorapasta.com</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Bizi Takip Edin</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Dora Pasta. Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Kategori filtresi
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const productWrappers = document.querySelectorAll('.product-wrapper');
+        
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Aktif tab sınıfını güncelle
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.getAttribute('data-category');
+                
+                // Ürünleri filtrele
+                productWrappers.forEach(product => {
+                    if (category === 'all' || product.getAttribute('data-category') === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

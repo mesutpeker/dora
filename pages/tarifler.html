@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifler - Dora Pasta</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .recipes-container {
+            padding: 80px 0;
+        }
+        .recipe-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .recipe-detail {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        .recipe-detail img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .recipe-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .recipe-info div {
+            display: flex;
+            align-items: center;
+        }
+        .recipe-info i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        .ingredients, .steps {
+            margin-bottom: 30px;
+        }
+        .ingredients h3, .steps h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .ingredients ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+        .ingredients li {
+            margin-bottom: 10px;
+        }
+        .steps ol {
+            padding-left: 20px;
+        }
+        .steps li {
+            margin-bottom: 15px;
+        }
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .category-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .share-recipe {
+            background: var(--light);
+            padding: 60px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .share-recipe h2 {
+            margin-bottom: 20px;
+        }
+        .share-recipe p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .recipe-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .dynamic-inputs {
+            margin-bottom: 10px;
+        }
+        .input-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .input-row input {
+            flex: 1;
+        }
+        .input-row button {
+            background: #f44336;
+            color: white;
+            border: none;
+            width: 40px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Dora Pasta</h1>
+                <p>Butik Lezzetler</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Ana Sayfa</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="urunlerimiz.html">Ürünlerimiz</a></li>
+                    <li><a href="tarifler.html" class="active">Tarifler</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Lezzet Dolu Tarifler</h1>
+            <p>Evde kolayca hazırlayabileceğiniz enfes tarifler</p>
+        </div>
+    </section>
+
+    <section class="recipes-container">
+        <div class="container">
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">Tümü</button>
+                <button class="category-btn" data-category="pastalar">Pastalar</button>
+                <button class="category-btn" data-category="kurabiyeler">Kurabiyeler</button>
+                <button class="category-btn" data-category="tatlilar">Diğer Tatlılar</button>
+            </div>
+
+            <!-- Örnek Tarif Detayı -->
+            <div class="recipe-detail">
+                <h2>Çikolatalı Brownie</h2>
+                <div class="recipe-info">
+                    <div><i class="far fa-clock"></i> Hazırlama: 15 dk</div>
+                    <div><i class="fas fa-fire"></i> Pişirme: 25 dk</div>
+                    <div><i class="fas fa-user-friends"></i> 8 Porsiyon</div>
+                </div>
+                <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="Çikolatalı Brownie">
+                
+                <div class="ingredients">
+                    <h3>Malzemeler</h3>
+                    <ul>
+                        <li>200g bitter çikolata</li>
+                        <li>150g tereyağ</li>
+                        <li>3 yumurta</li>
+                        <li>200g şeker</li>
+                        <li>1 paket vanilya</li>
+                        <li>100g un</li>
+                        <li>30g kakao</li>
+                        <li>1 çimdik tuz</li>
+                    </ul>
+                </div>
+                
+                <div class="steps">
+                    <h3>Hazırlanışı</h3>
+                    <ol>
+                        <li>Fırını 180°C'ye ısıtın. 20x20 cm kare bir kek kalıbını yağlayın veya pişirme kağıdı ile kaplayın.</li>
+                        <li>Çikolatayı ve tereyağını benmari usulü eritin. Karışımı soğumaya bırakın.</li>
+                        <li>Büyük bir kasede yumurtaları ve şekeri mikserle krema kıvamına gelene kadar çırpın.</li>
+                        <li>Soğumuş çikolata karışımını yumurtalı karışıma ilave edip karıştırın.</li>
+                        <li>Un, kakao ve tuzu eleyerek karışıma ekleyin ve spatula ile tamamen karışana kadar yavaşça karıştırın.</li>
+                        <li>Hazırladığınız hamuru kalıba dökün ve önceden ısıtılmış fırında 25-30 dakika pişirin.</li>
+                        <li>Pişen brownie'yi fırından çıkarıp tamamen soğutun, sonra dilimleyerek servis edin.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="recipe-list">
+                <div class="recipe-card" data-category="kurabiyeler">
+                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Damla Çikolatalı Kurabiye">
+                    <h3>Damla Çikolatalı Kurabiye</h3>
+                    <p>Dışı çıtır, içi yumuşacık nefis kurabiyeler.</p>
+                    <a href="#" class="btn-small">Tarifi Gör</a>
+                </div>
+                <div class="recipe-card" data-category="pastalar">
+                    <img src="https://images.unsplash.com/photo-1562777717-dc6984f65a63?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Çilekli Pasta">
+                    <h3>Çilekli Pasta</h3>
+                    <p>Taze çileklerle süslenmiş, hafif ve lezzetli pasta.</p>
+                    <a href="#" class="btn-small">Tarifi Gör</a>
+                </div>
+                <div class="recipe-card" data-category="tatlilar">
+                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Tiramisu">
+                    <h3>Tiramisu</h3>
+                    <p>İtalyan mutfağının en sevilen tatlısı.</p>
+                    <a href="#" class="btn-small">Tarifi Gör</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="share-recipe">
+        <div class="container">
+            <h2>Kendi Tarifinizi Paylaşın</h2>
+            <p>Sizin de lezzetli bir tarifniz mi var? Aşağıdaki formu doldurarak bizimle paylaşabilirsiniz.</p>
+            
+            <form class="recipe-form" id="recipeForm">
+                <div class="form-group">
+                    <label for="recipeName">Tarif Adı</label>
+                    <input type="text" id="recipeName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="recipeCategory">Kategori</label>
+                    <select id="recipeCategory" class="form-control" required>
+                        <option value="">Kategori Seçin</option>
+                        <option value="pastalar">Pastalar</option>
+                        <option value="kurabiyeler">Kurabiyeler</option>
+                        <option value="tatlilar">Diğer Tatlılar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prepTime">Hazırlama Süresi (dakika)</label>
+                    <input type="number" id="prepTime" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="cookTime">Pişirme Süresi (dakika)</label>
+                    <input type="number" id="cookTime" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="servings">Porsiyon Sayısı</label>
+                    <input type="number" id="servings" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Malzemeler</label>
+                    <div id="ingredientsList" class="dynamic-inputs">
+                        <div class="input-row">
+                            <input type="text" class="form-control" placeholder="Örn: 2 yumurta" required>
+                            <button type="button" class="remove-btn">&times;</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addIngredient" class="add-btn">+ Malzeme Ekle</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Hazırlanışı</label>
+                    <div id="stepsList" class="dynamic-inputs">
+                        <div class="input-row">
+                            <input type="text" class="form-control" placeholder="Adım 1" required>
+                            <button type="button" class="remove-btn">&times;</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addStep" class="add-btn">+ Adım Ekle</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeNotes">Notlar (opsiyonel)</label>
+                    <textarea id="recipeNotes" class="form-control" rows="4"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Tarifi Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Dora Pasta</h3>
+                    <p>Butik Lezzetler</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Hızlı Erişim</h4>
+                    <ul>
+                        <li><a href="../index.html">Ana Sayfa</a></li>
+                        <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                        <li><a href="urunlerimiz.html">Ürünlerimiz</a></li>
+                        <li><a href="tarifler.html">Tarifler</a></li>
+                        <li><a href="iletisim.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>İletişim</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Çiçek Mahallesi, Pasta Sokak No:42, İstanbul</p>
+                    <p><i class="fas fa-phone"></i> (0212) 555 55 55</p>
+                    <p><i class="fas fa-envelope"></i> info@dorapasta.com</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Bizi Takip Edin</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Dora Pasta. Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Kategori filtresi
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const recipeCards = document.querySelectorAll('.recipe-card');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+                
+                // Buton aktifliğini güncelle
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Tarifleri filtrele
+                recipeCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Dinamik form alanları için
+        document.getElementById('addIngredient').addEventListener('click', function() {
+            const ingredientsList = document.getElementById('ingredientsList');
+            const newRow = document.createElement('div');
+            newRow.className = 'input-row';
+            newRow.innerHTML = `
+                <input type="text" class="form-control" placeholder="Örn: 2 yumurta" required>
+                <button type="button" class="remove-btn">&times;</button>
+            `;
+            ingredientsList.appendChild(newRow);
+            
+            // Yeni eklenen satırdaki silme butonunu dinle
+            newRow.querySelector('.remove-btn').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+        
+        document.getElementById('addStep').addEventListener('click', function() {
+            const stepsList = document.getElementById('stepsList');
+            const newRow = document.createElement('div');
+            newRow.className = 'input-row';
+            newRow.innerHTML = `
+                <input type="text" class="form-control" placeholder="Adım ${stepsList.children.length + 1}" required>
+                <button type="button" class="remove-btn">&times;</button>
+            `;
+            stepsList.appendChild(newRow);
+            
+            // Yeni eklenen satırdaki silme butonunu dinle
+            newRow.querySelector('.remove-btn').addEventListener('click', function() {
+                this.parentElement.remove();
+                
+                // Adım numaralarını güncelle
+                const steps = stepsList.querySelectorAll('.input-row');
+                steps.forEach((step, index) => {
+                    step.querySelector('input').placeholder = `Adım ${index + 1}`;
+                });
+            });
+        });
+        
+        // Var olan silme butonlarını dinle
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+        
+        // Form gönderimi
+        document.getElementById('recipeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm('recipeForm')) {
+                alert('Tarifiniz başarıyla gönderildi! İncelendikten sonra sitemizde yayınlanacaktır.');
+                this.reset();
+                
+                // Dinamik alanları sıfırla
+                document.getElementById('ingredientsList').innerHTML = `
+                    <div class="input-row">
+                        <input type="text" class="form-control" placeholder="Örn: 2 yumurta" required>
+                        <button type="button" class="remove-btn">&times;</button>
+                    </div>
+                `;
+                
+                document.getElementById('stepsList').innerHTML = `
+                    <div class="input-row">
+                        <input type="text" class="form-control" placeholder="Adım 1" required>
+                        <button type="button" class="remove-btn">&times;</button>
+                    </div>
+                `;
+                
+                // Yeni silme butonlarını dinle
+                document.querySelectorAll('.remove-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        this.parentElement.remove();
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
